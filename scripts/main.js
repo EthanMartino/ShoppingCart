@@ -12,6 +12,13 @@ function initBuyButtons() {
     }
 }
 function buyProduct() {
+    var prod = getProduct();
+    saveProductToCart(prod);
+}
+/**
+ * Create a Product object from the webpage from the currently selected product
+ */
+function getProduct() {
     //Get the Buy div that was clicked
     var currBuyBtn = this;
     console.log("The Div that was clicked:");
@@ -31,6 +38,10 @@ function buyProduct() {
     //assign description from inside the product div
     prod.description = currProductDiv.querySelector("div.description").innerHTML;
     console.log(prod);
+    return prod;
+}
+function saveProductToCart(p) {
+    throw "Not Implemented";
 }
 /**
  * Represents a single shopping cart item
