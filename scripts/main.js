@@ -12,7 +12,25 @@ function initBuyButtons() {
     }
 }
 function buyProduct() {
-    alert("BUY BUTTON CLICKED MOTHER FUCKER");
+    //Get the Buy div that was clicked
+    var currBuyBtn = this;
+    console.log("The Div that was clicked:");
+    console.log(currBuyBtn);
+    //Get the Product Div that is the parent of the buy div
+    var currProductDiv = currBuyBtn.parentElement;
+    console.log("The Parent Product Div of the div that was clicked:");
+    console.log(currProductDiv);
+    //Create new Product object and 
+    //assign title from inside the product div
+    var prod = new Product();
+    prod.title = currProductDiv.querySelector("div.title").innerHTML;
+    //assign price from inside the product div
+    var price = currProductDiv.querySelector("div.price").innerHTML;
+    price = price.replace("$", "");
+    prod.price = parseFloat(price);
+    //assign description from inside the product div
+    prod.description = currProductDiv.querySelector("div.description").innerHTML;
+    console.log(prod);
 }
 /**
  * Represents a single shopping cart item
