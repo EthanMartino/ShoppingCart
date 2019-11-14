@@ -30,3 +30,14 @@ div.price{
 div.product > img{
     float: left;
 }
+
+div#display-cart{
+    width: 20%;
+    border: 1px solid blue;
+    padding: .5em;
+}
+
+div.display-product{
+    border: 1px solid lightslategray;
+    padding: .5em;
+}
