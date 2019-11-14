@@ -1,5 +1,9 @@
 window.onload = function(){
     initBuyButtons();
+    displayNumberOfItems();
+
+    let cartIcon = <HTMLDivElement>document.querySelector("div#shopping-cart");
+    cartIcon.onclick = showCartContents;
 }
 
 /**
@@ -14,17 +18,18 @@ function initBuyButtons():void {
 }
 
 function buyProduct():void{
-    let prod = getProduct();
+    let currBtn = this;
+    let prod = getProduct(currBtn);
 
     saveProductToCart(prod);
+
+    displayNumberOfItems();
 }
 
 /**
  * Create a Product object from the webpage from the currently selected product
  */
-function getProduct():Product {
-    //Get the Buy div that was clicked
-    let currBuyBtn = <HTMLElement>this;
+function getProduct(currBuyBtn:HTMLDivElement):Product {
     console.log("The Div that was clicked:");
     console.log(currBuyBtn);
 
@@ -50,5 +55,35 @@ function getProduct():Product {
 }
 
 function saveProductToCart(p:Product):Product[]{
-    throw "Not Implemented";
+    ProductStorage.addProduct(p);
+    return ProductStorage.getAllProducts();
+}
+
+function displayNumberOfItems():void{
+    let numItems = ProductStorage.getNumberOfProducts();
+    document.querySelector("div#shopping-cart > span").innerHTML = numItems.toString();
+}
+
+function showCartContents():void{
+    //get display div and remove everything from it
+    let displayDiv = document.querySelector("div#display-cart");
+    displayDiv.innerHTML = "";
+
+    let allProds = ProductStorage.getAllProducts();
+    for(let i = 0; i < allProds.length; i++){
+        //get product
+        const prod = allProds[i];
+
+        //create div to display product and add class to div
+        let prodDiv = document.createElement("div");
+        prodDiv.classList.add("display-product");
+
+        //create h2 for product title and price and add it to the new div 
+        let h2 = document.createElement("h2");
+        h2.innerHTML = prod.title + " - $" + prod.price;
+        prodDiv.appendChild(h2);
+
+        //Add new div to display div on webpage
+        displayDiv.appendChild(prodDiv);
+    }
 }
